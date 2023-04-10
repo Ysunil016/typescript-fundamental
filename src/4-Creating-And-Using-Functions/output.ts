@@ -186,7 +186,7 @@ function runTheLearningSamples() {
     };
   }
 
-  const { floor, random } = Math;
+  const { floor, random } = Math; // Destructuring from Functions
   const getRandomInt = (max: number = 1000) => floor(random() * max);
 
   console.log(`${prefix} Optional parameters`);
