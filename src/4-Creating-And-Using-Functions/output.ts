@@ -2,6 +2,7 @@ import { productsURL } from '../lib';
 
 const prefix = '🐉 ';
 
+// Custom Type : DTO
 type ProductType = {
   id: number;
   name: string;
@@ -52,7 +53,7 @@ async function getProducts(): Promise<ProductType[]> {
  * Learning sample code.
  ***********************************************/
 
-runTheLearningSamples();
+runTheLearningSamples(); // Calling Before
 
 function runTheLearningSamples() {
   // typed parameters
@@ -72,7 +73,7 @@ function runTheLearningSamples() {
   console.log(addNumbersDeclaration(7, 11));
 
   function addNumbersDeclaration(x: number, y: number) {
-    const sum: number = x + y;
+    const sum: number = x + y; // const sum = x + y;
     return sum;
   }
 
@@ -93,7 +94,7 @@ function runTheLearningSamples() {
   console.log(`${prefix} return scalar value`);
   console.log(addNumbersDeclaration(7, 11));
 
-  const sampleProducts = [
+  const sampleProducts : ProductType[] = [
     {
       id: 10,
       name: 'Pizza slice',
@@ -112,7 +113,8 @@ function runTheLearningSamples() {
   ];
 
   function getProductNames(): string[] {
-    return sampleProducts.map((p) => p.name);
+    // return sampleProducts.map((p) => p.name);
+    return sampleProducts.map(function (p){ return p.name});
   }
 
   console.log(`${prefix} return array`);
@@ -120,9 +122,23 @@ function runTheLearningSamples() {
 
   // Return Types
 
-  // CREATE type ProductType
+  function getAllProduct(): ProductType[] | undefined {
+    return sampleProducts;
+  }
 
+  console.log(`${prefix} return all objects`);
+  console.log(getAllProduct());
+  
+  
+
+  // CREATE type ProductType
+  
   function getProductById(id: number): ProductType | undefined {
+    return sampleProducts.find((p) => (id = p.id));
+  }
+
+  // Arrow Function
+  const getProductById2 = (id: number): ProductType | undefined => {
     return sampleProducts.find((p) => (id = p.id));
   }
 
@@ -132,10 +148,16 @@ function runTheLearningSamples() {
   // Return void
 
   function displayProducts(products: ProductType[]): void {
-    const productNames = products.map((p) => {
+    const productNames = products.map((p : ProductType) => {
       const name = p.name.toLowerCase();
       return name;
     });
+
+    // const productNames = products.map(function (p){
+    //   const name = p.name.toLowerCase();
+    //   return name;
+    // });
+
     const msg = `Sample products include: ${productNames.join(', ')}`;
     console.log(`${prefix} return void`);
     console.log(msg);
@@ -209,9 +231,9 @@ function runTheLearningSamples() {
   const someAddress = buildAddress(
     '1 lois lane',
     'smallville',
-    'apt 101', // rest
-    'area 51', // rest
-    'mystery country', // rest
+    'apt 101', // rest arg[0]
+    'area 51', // rest arg[1]
+    'mystery country', // rest arg[2]
   );
 
   console.log(`${prefix} Rest parameters`);
@@ -219,7 +241,7 @@ function runTheLearningSamples() {
 
   // Destructuring parameters
 
-  function displayProduct({ id, name }: ProductType): void {
+  function displayProduct({ id, name }: ProductType): void { // Value Destructuring
     console.log(`${prefix} Destructuring parameters`);
     console.log(`Product id=${id} and name=${name}`);
   }
